@@ -1,29 +1,139 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
-    <title>字典應用</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中韓字典查詢</title>
+    <style>
+        :root {
+            --accent: #0984e3;
+            --text: #2d3436;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background-color: #fafafa;
+            color: var(--text);
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            background: white;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        h1 {
+            font-weight: 300;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .search-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent);
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            text-align: left;
+            border-left: 4px solid var(--accent);
+        }
+
+        .result-label {
+            font-size: 0.8rem;
+            color: #636e72;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .result-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            color: #b2bec3;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+    </style>
 </head>
+
 <body>
 
-    <h1>中韓字典查詢</h1>
+    <div class="wrapper">
+        <h1>中韓字典查詢</h1>
 
-    <!-- 問題輸入表單 -->
-    <form method="POST">
-        <input type="text" name="question" placeholder="請輸入中文或韓文" required>
-        <button type="submit">查詢</button>
-    </form>
+        <form method="POST" class="search-group">
+            <input type="text" name="question" placeholder="輸入中文或韓文..." required autocomplete="off">
+            <button type="submit">查詢</button>
+        </form>
 
-    <hr>
+        {% if question %}
+        <div class="result-box">
+            <div class="result-label">查詢詞彙</div>
+            <div class="result-text">{{ question }}</div>
 
-    <!-- 顯示結果 -->
-    {% if question %}
-        <p><strong>你輸入的是：</strong>{{ question }}</p>
-        <p><strong>翻譯結果：</strong>{{ answer }}</p>
-    {% endif %}
+            <div class="result-label">翻譯結果</div>
+            <div class="result-text" style="color: var(--accent);">{{ answer }}</div>
+        </div>
+        {% endif %}
 
-    <br>
-    <a href="/">返回首頁</a>
+        <a href="/" class="back-link">← 返回首頁</a>
+    </div>
 
 </body>
+
 </html>
